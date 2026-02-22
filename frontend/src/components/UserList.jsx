@@ -20,23 +20,29 @@ const UserList = () => {
   }, []);
 
   return (
-    <div className="p-6">
-      <h2 className="text-xl font-bold mb-4">Daftar Player</h2>
-
-      {users.map((user) => (
-        <div key={user._id} className="border p-3 rounded mb-2 shadow">
-          <p>
-            <strong>Card ID:</strong> {user.cardId}
-          </p>
-          <p>
-            <strong>Username:</strong> {user.username}
-          </p>
-          <p>
-            <strong>Saldo:</strong> Rp {(user.balance || 0).toLocaleString()}
-          </p>
+    <>
+      <div className="p-6 text-white mt-5">
+        <h2 className="text-3xl text-center font-bold mb-10">Daftar Player</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-3">
+          {users.map((user) => (
+            <div
+              key={user._id}
+              className="bg-lime-700 p-3 rounded-xl mb-2 font-bold shadow-lg"
+            >
+              <img
+                src="/images/orang1.jpg"
+                alt=""
+                className="mb-4 hidden md:block"
+              />
+              <div className="text-center text-xl">
+                <p>{user.username}</p>
+                <p>Rp {(user.balance || 0).toLocaleString()}</p>
+              </div>
+            </div>
+          ))}
         </div>
-      ))}
-    </div>
+      </div>
+    </>
   );
 };
 

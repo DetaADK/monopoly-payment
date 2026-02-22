@@ -52,10 +52,10 @@ const ScanPage = () => {
 
   return (
     <>
-      <div className=" bg-gray-100 flex items-center justify-center p-4">
+      <div className=" bg-zinc-800 flex items-center justify-center p-4">
         <div className="bg-white rounded-xl shadow-lg overflow-hidden max-w-md w-full">
           {/* Header */}
-          <div className="bg-blue-600 p-4 text-center">
+          <div className="bg-lime-700 p-4 text-center">
             <h1 className="text-white text-2xl font-bold">
               Monopoly Isi Saldo
             </h1>
@@ -106,7 +106,7 @@ const ScanPage = () => {
                   <button
                     onClick={handleConfirm}
                     disabled={loading}
-                    className="flex-1 py-3 rounded-lg bg-blue-600 text-white font-bold text-lg hover:bg-blue-700 disabled:opacity-50"
+                    className="flex-1 py-3 rounded-lg bg-lime-700 text-white font-bold text-lg hover:bg-lime-800 disabled:opacity-50"
                   >
                     {loading ? "Memproses..." : "Konfirmasi"}
                   </button>
@@ -144,7 +144,7 @@ const ScanPage = () => {
 
                 <button
                   onClick={resetScanner}
-                  className="w-full py-3 mt-4 rounded-lg bg-blue-600 text-white font-bold text-lg hover:bg-blue-700"
+                  className="w-full py-3 mt-4 rounded-lg bg-lime-700 text-white font-bold text-lg hover:bg-lime-800"
                 >
                   Scan Kartu Lain
                 </button>
@@ -152,11 +152,6 @@ const ScanPage = () => {
             )}
           </div>
         </div>
-      </div>
-
-      {/* Tampilan Daftar Player */}
-      <div>
-        <UserList />
       </div>
     </>
   );

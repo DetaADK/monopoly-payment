@@ -1,9 +1,11 @@
 import ScanPage from "./components/ScanPage.jsx";
+import UserList from "./components/UserList.jsx";
 function App() {
   return (
     <>
-      <div className="App">
+      <div className="min-h-screen bg-zinc-800">
         <ScanPage />
+        <UserList />
       </div>
     </>
   );
