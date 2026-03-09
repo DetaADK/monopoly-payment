@@ -19,6 +19,22 @@ const UserList = () => {
     fetchUsers();
   }, []);
 
+  const deactivateUser = async (cardId) => {
+    try {
+      await axios.post("http://localhost:5000/api/topup/deactivate", {
+        cardId,
+      });
+
+      setUsers((prev) =>
+        prev.map((user) =>
+          user.cardId === cardId ? { ...user, isActive: false } : user,
+        ),
+      );
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <>
       <div className="p-6 text-white mt-5">
@@ -29,15 +45,23 @@ const UserList = () => {
               key={user._id}
               className="bg-lime-700 p-3 rounded-xl mb-2 font-bold shadow-lg"
             >
-              <img
-                src="/images/orang1.jpg"
-                alt=""
-                className="mb-4 hidden md:block"
-              />
               <div className="text-center text-xl">
                 <p>{user.username}</p>
                 <p>Rp {(user.balance || 0).toLocaleString()}</p>
+                <p
+                  className={
+                    user.isActive ? "text-green-300 font-bold" : "text-gray-300"
+                  }
+                >
+                  {user.isActive ? "AKTIF" : "NONAKTIF"}
+                </p>
               </div>
+              <button
+                onClick={() => deactivateUser(user.cardId)}
+                className="mt-2 bg-red-500 px-3 py-1 rounded text-sm"
+              >
+                Nonaktifkan
+              </button>
             </div>
           ))}
         </div>

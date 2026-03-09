@@ -23,8 +23,6 @@ router.get("/users", async (req, res) => {
 router.post("/process-scan", async (req, res) => {
   const { cardId } = req.body;
 
-  console.log("Menerima request dari:", cardId); // Cek di terminal backend
-
   if (!cardId) {
     return res
       .status(400)
@@ -32,44 +30,52 @@ router.post("/process-scan", async (req, res) => {
   }
 
   try {
-    let user = await User.findOne({ cardId: cardId });
+    const user = await User.findOne({ cardId });
 
-    if (user) {
-      user.balance += FIXED_NOMINAL;
-      await user.save();
-
+    if (!user) {
       return res.json({
-        success: true,
-        msg: "Saldo berhasil ditambahkan",
-        user: {
-          cardId: user.cardId,
-          username: user.username,
-          addedNominal: FIXED_NOMINAL,
-          newBalance: user.balance,
-        },
-      });
-    } else {
-      user = new User({
-        cardId: cardId,
-        username: `Player-${cardId}`,
-        balance: FIXED_NOMINAL,
-      });
-      await user.save();
-
-      return res.json({
-        success: true,
-        msg: "Kartu baru berhasil didaftarkan & diisi saldo!",
-        user: {
-          cardId: user.cardId,
-          username: user.username,
-          addedNominal: FIXED_NOMINAL,
-          newBalance: user.balance,
-        },
+        success: false,
+        msg: "Player belum terdaftar",
       });
     }
+
+    // Aktifkan player
+    user.isActive = true;
+    await user.save();
+
+    res.json({
+      success: true,
+      msg: "Player berhasil diaktifkan",
+      user,
+    });
   } catch (err) {
-    console.error("Server Error:", err.message);
+    console.error(err);
     res.status(500).json({ success: false, msg: "Server Error" });
+  }
+});
+
+router.post("/deactivate", async (req, res) => {
+  const { cardId } = req.body;
+
+  try {
+    const user = await User.findOne({ cardId });
+
+    if (!user) {
+      return res.json({
+        success: false,
+        msg: "User tidak ditemukan",
+      });
+    }
+
+    user.isActive = false;
+    await user.save();
+
+    res.json({
+      success: true,
+      msg: "Player dinonaktifkan",
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, msg: "Server error" });
   }
 });
 

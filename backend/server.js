@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const topupRoutes = require("./routes/topup");
+const placeRoutes = require("./routes/place");
 
 const app = express();
 const PORT = 5000;
@@ -18,6 +19,7 @@ mongoose
 
 // Routes
 app.use("/api/topup", topupRoutes);
+app.use("/api/place", placeRoutes);
 
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);

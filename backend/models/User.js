@@ -15,6 +15,10 @@ const UserSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  isActive: {
+    type: Boolean,
+    default: false, // default tidak aktif
+  },
   createdAt: {
     type: Date,
     default: Date.now,
